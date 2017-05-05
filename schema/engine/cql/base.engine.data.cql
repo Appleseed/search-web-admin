@@ -1,5 +1,5 @@
 insert into config (config_type, config_name, config_values) values (
-	'index', 'CrunchBaseApiCrawlerIndexServiceSection',
+	'source', 'CrunchBaseApiCrawler',
 	{ 'CrunchBase' : {'apiUrl' : 'http://api.crunchbase.com/v/2/', 
 					  'apiKey' : 'XXXXXX',
 					  'indexPath' : '{indexalias1}',
@@ -11,7 +11,7 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'DbFileIndexServiceSection',
+	'source', 'DbFile',
 	{ 'Files' : {'indexPath' : '{indexalias1}', 
 				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
 				 'tableName' : 'as_Cache_BaseItemCollection'
@@ -19,7 +19,7 @@ insert into config (config_type, config_name, config_values) values (
 	}
 );
 insert into config (config_type, config_name, config_values) values (
-	'index', 'DropBoxCloudFileIndexServiceSection',
+	'source', 'DropBoxCloudFile',
 	{ 'DropBox' : {'appkey' : 'XXXXXX', 
 				   'appSecret' : 'XXXXXX',
 				   'token' : 'XXXXXX',
@@ -33,7 +33,7 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'GraphDBsSection',
+	'graph', 'GraphDatabases',
 	{ 'graphDB1' : {  'location' : 'C:\Projects\Anant\graphDB1', 
 					  'type' : 'neo4j',
 					  'url' : 'http://localhost:7474/db/data'
@@ -45,7 +45,7 @@ insert into config (config_type, config_name, config_values) values (
 	}
 );
 insert into config (config_type, config_name, config_values) values (
-	'index', 'IlluminatorsSection',
+	'processor', 'Illuminators',
 	{ 'Alchemy1' : {  'type' : 'Alchemy', 
 					  'apiKey' : 'XXXXXX'
 				   }
@@ -53,7 +53,7 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'IndexesSectionCfg',
+	'index', 'SearchIndexes',
 	{ 'indexalias1' : {	'location' : 'C:\Services\Appleseed.Search\Data\public', 
 						'type' : 'Lucene.NET',
 						'collectionName' : ''
@@ -77,7 +77,7 @@ insert into config (config_type, config_name, config_values) values (
 	}
 );
 insert into config (config_type, config_name, config_values) values (
-	'index', 'NutshellCRMApiCrawlerIndexServiceSection',
+	'source', 'NutshellCRMApiCrawler',
 	{ 'Nutshell' : {'apiUrl' : 'https://app.nutshell.com/api/v1/json',
 					'apiKey' : 'XXXXXX',
 					'apiUserEmail' : 'EMAIL@EMAIL.COM',
@@ -90,7 +90,7 @@ insert into config (config_type, config_name, config_values) values (
 
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'QueuesIndexServiceSection',
+	'queue', 'Queues',
 	{ 'queuealias1' : {'connectionString' : '',
 					   'queueName' : 'as_Cache_BaseItemCollection',
 					   'type' : 'InMemory'
@@ -98,7 +98,7 @@ insert into config (config_type, config_name, config_values) values (
 	}
 );
 insert into config (config_type, config_name, config_values) values (
-	'index', 'rssIndexServiceSection',
+	'source', 'rss',
 	{ 'Blog' : { 'siteMapUrl' : 'https://blog.domain.us/feed',
 				 'indexPath' : '{indexAlias5}'
 			   }
@@ -106,7 +106,7 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'TagServiceSection',
+	'processor', 'Tagger',
 	{ 'Tags' : { 'url' : 'http://url.com', 
 				 'portalId' : '0',
 				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
@@ -115,7 +115,7 @@ insert into config (config_type, config_name, config_values) values (
 	}
 );
 insert into config (config_type, config_name, config_values) values (
-	'index', 'WebCrawlIndexServiceSection',
+	'source', 'WebCrawl',
 	{ 'Webcrawl' : { 'siteMapUrl' : 'http://domain.co', 
 					 'crawlDepth' : '100',
 					 'indexPath' : '{indexalias1}',
@@ -126,7 +126,7 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'index', 'WebsiteIndexServiceSection',
+	'source', 'Website',
 	{ 'My Site' : { 'siteMapUrl' : 'http://domain.com/sitemap.axd', 
 				    'indexPath' : '{indexalias5}'
 				  }
