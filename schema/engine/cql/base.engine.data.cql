@@ -1,39 +1,36 @@
-insert into config (config_type, config_name, config_values) values (
-	'source', 'CrunchBaseApiCrawler',
-	{ 'CrunchBase' : {'apiUrl' : 'http://api.crunchbase.com/v/2/', 
-					  'apiKey' : 'XXXXXX',
-					  'indexPath' : '{indexalias1}',
-					  'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
-					  'tableName' : 'as_Cache_BaseItemCollection',
-					  'itemsCollected' : '33'
-					 }
-	}
-);
+
 
 insert into config (config_type, config_name, config_values) values (
-	'source', 'DbFile',
-	{ 'Files' : {'indexPath' : '{indexalias1}', 
-				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
-				 'tableName' : 'as_Cache_BaseItemCollection'
+	'queue', 'Base.Queue',
+	{ 'queue_aggregate' : {'connectionString' : '',
+					   'queueName' : 'Aggregate',
+					   'type' : 'InMemory'
+				},
+	  'queue_collect' : {'connectionString' : '',
+					   'queueName' : 'Collect',
+					   'type' : 'Redis'
+				},
+	  'queue_extract' : {'connectionString' : '',
+					   'queueName' : 'Extract',
+					   'type' : 'Lucene'
+				},
+	  'queue_illuminate' : {'connectionString' : '',
+					   'queueName' : 'Illuminate',
+					   'type' : 'Cassandra'
+				},
+	  'queue_organize' : {'connectionString' : '',
+					   'queueName' : 'Organize',
+					   'type' : 'RabbitMQ'
+				},
+	  'queue_index' : {'connectionString' : '',
+					   'queueName' : 'Index',
+					   'type' : 'MySQL'
 				}
 	}
 );
-insert into config (config_type, config_name, config_values) values (
-	'source', 'DropBoxCloudFile',
-	{ 'DropBox' : {'appkey' : 'XXXXXX', 
-				   'appSecret' : 'XXXXXX',
-				   'token' : 'XXXXXX',
-				   'tokenSecret' : 'XXXXXX',
-				   'filesPath' : 'C:\Projects\Anant\KonoTree_Files',
-				   'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
-				   'queueName' : '{queuealias1}',
-				   'userAgent' : '{userAgent1}'
-				  }
-	}
-);
 
 insert into config (config_type, config_name, config_values) values (
-	'graph', 'GraphDatabases',
+	'graph', 'Search.Organize',
 	{ 'graphDB1' : {  'location' : 'C:\Projects\Anant\graphDB1', 
 					  'type' : 'neo4j',
 					  'url' : 'http://localhost:7474/db/data'
@@ -44,16 +41,26 @@ insert into config (config_type, config_name, config_values) values (
 				}
 	}
 );
+
 insert into config (config_type, config_name, config_values) values (
-	'processor', 'Illuminators',
+	'processor', 'Search.Illuminate',
 	{ 'Alchemy1' : {  'type' : 'Alchemy', 
 					  'apiKey' : 'XXXXXX'
 				   }
+				   ,
+	  'OpeanCalais' : {  'type' : 'OpeanCalais', 
+					  'apiKey' : 'XXXXXX',
+					  'apiSecret' : 'XXXXXX'
+				   },
+	
+	  'StanfordNLP' : {  'type' : 'StanfordNLP'
+				    }
 	}
 );
 
+
 insert into config (config_type, config_name, config_values) values (
-	'index', 'SearchIndexes',
+	'index', 'Search.Index',
 	{ 'indexalias1' : {	'location' : 'C:\Services\Appleseed.Search\Data\public', 
 						'type' : 'Lucene.NET',
 						'collectionName' : ''
@@ -76,29 +83,9 @@ insert into config (config_type, config_name, config_values) values (
 					  }
 	}
 );
-insert into config (config_type, config_name, config_values) values (
-	'source', 'NutshellCRMApiCrawler',
-	{ 'Nutshell' : {'apiUrl' : 'https://app.nutshell.com/api/v1/json',
-					'apiKey' : 'XXXXXX',
-					'apiUserEmail' : 'EMAIL@EMAIL.COM',
-					'indexPath' : '{indexalias1}',
-					'connectionString' : 'server=.\SQLEXPRESS;Trusted_Connection=yes;database=DATABASE',
-					'tableName' : 'as_Cache_BaseItemCollection'
-				   }
-	}
-);
-
 
 insert into config (config_type, config_name, config_values) values (
-	'queue', 'Queues',
-	{ 'queuealias1' : {'connectionString' : '',
-					   'queueName' : 'as_Cache_BaseItemCollection',
-					   'type' : 'InMemory'
-				}
-	}
-);
-insert into config (config_type, config_name, config_values) values (
-	'source', 'rss',
+	'source', 'Web.Site.RSS.XML',
 	{ 'Blog' : { 'siteMapUrl' : 'https://blog.domain.us/feed',
 				 'indexPath' : '{indexAlias5}'
 			   }
@@ -106,16 +93,15 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'processor', 'Tagger',
-	{ 'Tags' : { 'url' : 'http://url.com', 
-				 'portalId' : '0',
-				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
-				 'tableName' : 'as_Cache_BaseItemCollection'
+	'source', 'Web.Site.Atom.XML',
+	{ 'Blog' : { 'siteMapUrl' : 'https://blog.domain.us/feed',
+				 'indexPath' : '{indexAlias5}'
 			   }
 	}
 );
+
 insert into config (config_type, config_name, config_values) values (
-	'source', 'WebCrawl',
+	'source', 'Web.Site.Crawl',
 	{ 'Webcrawl' : { 'siteMapUrl' : 'http://domain.co', 
 					 'crawlDepth' : '100',
 					 'indexPath' : '{indexalias1}',
@@ -126,9 +112,110 @@ insert into config (config_type, config_name, config_values) values (
 );
 
 insert into config (config_type, config_name, config_values) values (
-	'source', 'Website',
+	'source', 'Web.Site.Sitemap.XML',
 	{ 'My Site' : { 'siteMapUrl' : 'http://domain.com/sitemap.axd', 
 				    'indexPath' : '{indexalias5}'
 				  }
+	}
+);
+
+insert into config (config_type, config_name, config_values) values (
+	'processor', 'Portal.Content.Tagger',
+	{ 'Tags' : { 'url' : 'http://url.com', 
+				 'portalId' : '0',
+				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+				 'tableName' : 'as_Cache_BaseItemCollection'
+			   }
+	}
+);
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'Web.API.Crawler.CrunchBase',
+	{ 'CrunchBase' : {'apiUrl' : 'http://api.crunchbase.com/v/2/', 
+					  'apiKey' : 'XXXXXX',
+					  'indexPath' : '{indexalias1}',
+					  'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+					  'tableName' : 'as_Cache_BaseItemCollection',
+					  'itemsCollected' : '33'
+					 }
+	}
+);
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'Data.CSV',
+	{ 'Contacts' : {'indexPath' : '{indexalias1}', 
+				 'location' : 'C:\data\locationof\contacts.csv'
+				}
+	}
+);
+
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'Data.XML',
+	{ 'Contacts' : {'indexPath' : '{indexalias1}', 
+				 'location' : 'C:\data\locationof\contacts.xml'
+				}
+	}
+);
+
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'Data.MSSQL',
+	{ 'Contacts' : {'indexPath' : '{indexalias1}', 
+				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+				 'query' : 'Select * from Table'
+				}
+	}
+);
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'File.Local',
+	{ 'Files' : {'indexPath' : '{indexalias1}', 
+				 'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+				 'tableName' : 'as_Cache_BaseItemCollection'
+				}
+	}
+);
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'File.Cloud.DropBox',
+	{ 'DropBox' : {'appkey' : 'XXXXXX', 
+				   'appSecret' : 'XXXXXX',
+				   'token' : 'XXXXXX',
+				   'tokenSecret' : 'XXXXXX',
+				   'filesPath' : 'C:\Projects\Anant\KonoTree_Files',
+				   'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+				   'queueName' : '{queuealias1}',
+				   'userAgent' : '{userAgent1}'
+				  }
+	}
+);
+
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'File.Cloud.AmazonS3',
+	{ 'Amazon' : {'appkey' : 'XXXXXX', 
+				   'appSecret' : 'XXXXXX',
+				   'token' : 'XXXXXX',
+				   'tokenSecret' : 'XXXXXX',
+				   'filesPath' : 'C:\Projects\Anant\KonoTree_Files',
+				   'connectionString' : 'server=localhost;Trusted_Connection=yes;database=DATABASE',
+				   'queueName' : '{queuealias1}',
+				   'userAgent' : '{userAgent1}'
+				  }
+	}
+);
+
+
+
+insert into config (config_type, config_name, config_values) values (
+	'source', 'Web.API.CRM.Nutshell',
+	{ 'Nutshell' : {'apiUrl' : 'https://app.nutshell.com/api/v1/json',
+					'apiKey' : 'XXXXXX',
+					'apiUserEmail' : 'EMAIL@EMAIL.COM',
+					'indexPath' : '{indexalias1}',
+					'connectionString' : 'server=.\SQLEXPRESS;Trusted_Connection=yes;database=DATABASE',
+					'tableName' : 'as_Cache_BaseItemCollection'
+				   }
 	}
 );
